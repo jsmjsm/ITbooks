@@ -16,6 +16,12 @@ Linux is a freely distributed implementation of a UNIX-like kernel,the low level
 It is true that UNIX was originally written in C and that majority of UNIX applications are written in C, but C is not the only option available to Linux programmers, or UNIX programmers for the matter.
 
 ## Linux Programs
-Linux applications are represented by two special types of files: *executables* and *scripts*.
-**Executable:** files are programs that can be run directly by the computer;
-**Script:** collections of instructions for another program.
+Linux applications are represented by two special types of files: *executables* and *scripts*.  
+**Executable:** files are programs that can be run directly by the computer;  
+**Script:** collections of instructions for another program.  
+### Usual search paths 
+- /bin: Binaries, programs used in booting the system
+- /usr/bin: User binaries, standard programs available to users 
+- /usr/local/bin: Local binaries, program specific to installation.  
+**It is not a good idea to delete dictionaries from PATH unless you are sure that you under what will result if you do.**  
+uses the colon (:) character to separate entries in the PATH variable
