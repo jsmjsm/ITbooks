@@ -25,3 +25,20 @@ Linux applications are represented by two special types of files: *executables* 
 - /usr/local/bin: Local binaries, program specific to installation.  
 **It is not a good idea to delete dictionaries from PATH unless you are sure that you under what will result if you do.**  
 uses the colon (:) character to separate entries in the PATH variable
+
+## The C Compiler
+### Code with Vim
+open file: `vim filename`  
+save file: `:w`  
+quit: `:q`  
+switch to writing mode: `:i`  
+
+### Use gcc to compile, link and run the program
+```
+    gcc -o programname sourcecodename
+    ./programname
+```
+### How it works 
+You invoked the GNU C compiler that translated the C source into an executable file call *filename*. Then you ran the program and it print a greeting.  
+
+Prefix program names with `./ `(for example, `./hello`). This specifically instructs the shell to execute the program in the current directory with the given name. (The dot is an alias for the current directory.)
