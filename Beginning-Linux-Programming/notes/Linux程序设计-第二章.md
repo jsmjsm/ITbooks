@@ -38,3 +38,27 @@ shell 是一个作为用户和 Linux系统间的接口程序。它允许用户�
     `$ kill -1 1234 >killouterr.txt 2>&1`   //用 `>&` 将两组输出都重新定向到一个文件
     `$ kill -1 1234 >/dev/null 2>&1` // 丢弃所有输出信息到回收站
 
+### 2.4.2 Redirecting Input 重新定向输入
+*例子*: `more < killout.txt`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
