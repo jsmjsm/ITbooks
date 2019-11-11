@@ -42,3 +42,9 @@ switch to writing mode: `:i`
 You invoked the GNU C compiler that translated the C source into an executable file call *filename*. Then you ran the program and it print a greeting.  
 
 Prefix program names with `./ `(for example, `./hello`). This specifically instructs the shell to execute the program in the current directory with the given name. (The dot is an alias for the current directory.)
+
+## Development System Roadmap
+a brief look at some important directions and files
+
+### Applications 
+Applications are usually kept in directions reserved for them. 
