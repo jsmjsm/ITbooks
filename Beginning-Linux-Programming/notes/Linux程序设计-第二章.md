@@ -31,18 +31,42 @@ shell 是一个作为用户和 Linux系统间的接口程序。它允许用户�
 把想要重新定向的文件描述符号加在`>`前面  
 *例子：*  
     **想要丢弃错误信息并且阻止它在屏幕上显示**：用 `2>`  
-    假定我要kill一个进程  
-    IF 在我kill之前，进程已经结束了，那么执行kill的时候，kill命令将向 standard error   output（标准错误输出） 写一条错误信息  
-    S.T. 可以阻止kill命令向屏幕写任何内容  
-    `$ kill -HUP 1234 > killout.txt 2>killerr.txt`  // 将标准输出和标准错误输出分别重新定向到两个不同的文件  
-    `$ kill -1 1234 >killouterr.txt 2>&1`   //用 `>&` 将两组输出都重新定向到一个文件
-    `$ kill -1 1234 >/dev/null 2>&1` // 丢弃所有输出信息到回收站
+    
+    //假定我要kill一个进程  
+    //IF 在我kill之前，进程已经结束了，那么执行kill的时候，kill命令将向 标准错误输出 写一条错误信息  
+    //S.T. 可以阻止kill命令向屏幕写任何内容  
+    $ kill -HUP 1234 > killout.txt 2>killerr.txt    //将标准输出和标准错误输出分别重新定向到两个不同的文件  
+    $ kill -1 1234 >killouterr.txt 2>&1             //用 `>&` 将两组输出都重新定向到一个文件
+    $ kill -1 1234 >/dev/null 2>&1                  //丢弃所有输出信息到回收站
 
-### 2.4.2 Redirecting Input 重新定向输入
-*例子*: `more < killout.txt`
+### 2.4.2 Redirecting Input 重新定向输入  
+*例子*: `more < killout.txt`  
 
+### 2.4.3 Pipes 管道  
+You can connect processes using the pipe operator `|`.  
+你可以用管道操作符 `|` 来连接进程。  
 
+In Linux, process connected by pipes can run simultaneously and are automatically resheculed as data flows between them.  
+在Linux下通过管道连接的进程可以同时运行，并且随着数据流在他们之间的传递可以自动地进行协调。  
 
+*例子：*  
+````
+    // 不使用管道:
+    $ ps > psout.txt 
+    $ sort psout.txt > pssort.out
+
+    // 使用管道
+    $ ps | sort > passort.out
+
+    // 继续使用管道连接
+    $ ps -xo comm | sort | uniq | grep -vsh | more
+    // 1. 按字母排序 排序 ps命令的输出
+    // 2. 用 uniq 命令去除名字相同的进程
+    // 3. 用 grep -vsh 删除名为sh的进程
+    // 4. 将结果分页显示在屏幕上
+````
+
+**绝对不要在命令流中重复使用相同的文件名**
 
 
 
