@@ -180,13 +180,13 @@ depressed       \\输出变量值
 在一个参数中包含一个或多个空白字符，就要用`" "`
 字符串放在`" "`中  
 
-The behavior of variables such as `$foo` inside quotes depends on the type of quotes you use. 
-If you enclose a $ variable expression in double quotes`" "`, then it’s replaced with its value when the line is executed. 
-If you enclose it in single quotes`' '`, then no substitution takes place. 
-You can also remove the special meaning of the $ symbol by prefacing it with a `\`.
-像 `$foo`这样的变量在引号中的行为取决于引号的类型
-`" "`: 会把变量替换为 `$foo` 的值
-`' '`: 不发生替换
-`\`： 反义符号，取消`$`的特殊含义
+The behavior of variables such as `$foo` inside quotes depends on the type of quotes you use.  
+If you enclose a $ variable expression in double quotes`" "`, then it’s replaced with its value when the line is executed.  
+If you enclose it in single quotes`' '`, then no substitution takes place.  
+You can also remove the special meaning of the $ symbol by prefacing it with a `\`. 
+像 `$foo`这样的变量在引号中的行为取决于引号的类型  
+`" "`: 会把变量替换为 `$foo` 的值  
+`' '`: 不发生替换  
+`\`： 反义符号，取消`$`的特殊含义  
 
 
