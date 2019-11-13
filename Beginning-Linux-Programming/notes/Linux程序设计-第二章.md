@@ -127,8 +127,8 @@ In this way,只要输入脚本的名字就可以调用了
 如果运行是报错，需要把当前目录设置成Shell的PATH环境变量要查找执行命令的对象
 
 2. （推荐）在保存脚本的目录输入`./first`：
-把脚本程序的完整相对路径告诉shell
-**能够保证shell不会意外之行系统中的同名程序**
+把脚本程序的完整相对路径告诉shell  
+**能够保证shell不会意外之行系统中的同名程序！**
 
 ---
 完成后的脚本要移动到哪里？  
@@ -143,5 +143,50 @@ In this way,只要输入脚本的名字就可以调用了
 # chgrp root /usr/local/bin/first 
 # chmod 755 /usr/local/bin/first
 ````
+
+## 2.6 Shell Syntax Shell的语法  
+本部分内容：  
+- Variables: strings, numbers, environments, and parameters
+- Conditions: shell Booleans
+- Program control: if, elif, for, while, until, case
+- Lists 命令列表
+- Functions
+- Commands built into the shell ｜ shell内置命令
+- Getting the result of a command ｜ 获取命令执行的结果
+- Here documents
+
+### 2.6.1 Variables 变量
+- 使用变量之前不需要声明。
+- 变量类型默认是字符串string。
+- shell和一些工具在需要时会自动转换。  
+- 访问变量的内容： 在变量前加 `$`  
+- 为变量赋值时，只需要使用变量名。
+- 输出变量内容：`echo $variable`
+
+⚠️：字符串里面有空格，就需要用`" "`  
+⚠️：`=`两边不能有空格
+
+用户输入内容： `read varbianle`
+*例子：*
+````
+$ read mood     \\变量名为mood，等待用户输入
+depressed       \\用户输入
+$ echo $mood    \\eaco + $ + 变量名。输入变量内容
+depressed       \\输出变量值
+````
+
+#### 1- Quoting 使用引号
+一般情况下，脚本文件的参数用空白字符分割  
+在一个参数中包含一个或多个空白字符，就要用`" "`
+字符串放在`" "`中  
+
+The behavior of variables such as `$foo` inside quotes depends on the type of quotes you use. 
+If you enclose a $ variable expression in double quotes`" "`, then it’s replaced with its value when the line is executed. 
+If you enclose it in single quotes`' '`, then no substitution takes place. 
+You can also remove the special meaning of the $ symbol by prefacing it with a `\`.
+像 `$foo`这样的变量在引号中的行为取决于引号的类型
+`" "`: 会把变量替换为 `$foo` 的值
+`' '`: 不发生替换
+`\`： 反义符号，取消`$`的特殊含义
 
 
