@@ -74,7 +74,7 @@ In Linux, process connected by pipes can run simultaneously and are automaticall
 2. 把命令保存到一个文件中，作为一个程序来调
 
 ### 2.5.1 Interactive Programs 交互式程序
-例子：从大量C语言源文件中查找包含字符串POSIX的文件
+*例子：从大量C语言源文件中查找包含字符串POSIX的文件*
 ````
 $ for file in *
 > do
@@ -85,8 +85,37 @@ $ for file in *
 > done                      \\返回shell提示符
 ````
 
-shell支持通配符拓展：`* 匹配字符串`；`? 匹配单个字符`；`[set] 匹配方括号中任意一个单字符`；`[^set] 取反`；`{str1,str2}匹配字符串`
+shell支持通配符拓展：  
+`* 匹配字符串`；`? 匹配单个字符`；`[set] 匹配方括号中任意一个单字符`；`[^set] 取反`；`{str1,str2}匹配字符串`
+
+### 2.5.2 Creating a Script 创建脚本
+ *脚本范例：*
+ ````
+#! /bin/sh
+
+# first
+# This file looks through all the files in the current
+# directory for the string POSIX, and then prints the names of
+# those files to the standard output.
+
+for file in * 
+do 
+    if grep -q POSIX $file
+    then
+        echo $file
+    fi
+done
+
+exit 0
+ ````
+
+`#!/bin/sh` 是一种特殊形式的注释：`#!`告诉系统，后面跟着的参数`/bin/sh`是用来执行文件的程序。
+注释中用的是绝对路径。
+
+因为脚本程序本质上可以被看作是shell的标准输入，所以它可以包含任何通过你的PATH环境变量引用到Linux的命令。
+
+退出码：0表示成功
+
+脚本文件没有任何的拓展名或者后缀，用`.sh`也可以
 
 
-
- 
