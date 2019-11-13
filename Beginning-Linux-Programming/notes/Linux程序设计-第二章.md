@@ -118,4 +118,30 @@ exit 0
 
 脚本文件没有任何的拓展名或者后缀，用`.sh`也可以
 
+### 2.5.3 Making a Script Executable 把脚本设为可执行
+#### 调用脚本的两种方法
+1. 调用shell，并把脚本文件名作为一个参数：  
+例子：
+`$ bin/sh first`  
+In this way,只要输入脚本的名字就可以调用了
+如果运行是报错，需要把当前目录设置成Shell的PATH环境变量要查找执行命令的对象
+
+2. （推荐）在保存脚本的目录输入`./first`：
+把脚本程序的完整相对路径告诉shell
+**能够保证shell不会意外之行系统中的同名程序**
+
+---
+完成后的脚本要移动到哪里？  
+- 自己用：在自己的home目录创建一个bin目录，并且将这个目录添加到PATH变量
+- 让他人也能用：`/usr/local/bin`或者其他合适的位置
+
+防止其他用户修改脚本程序：  
+*去掉脚本程序的写权限:*
+````
+# cp first /usr/local/bin 
+# chown root /usr/local/bin/first 
+# chgrp root /usr/local/bin/first 
+# chmod 755 /usr/local/bin/first
+````
+
 
