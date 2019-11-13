@@ -68,21 +68,25 @@ In Linux, process connected by pipes can run simultaneously and are automaticall
 
 **绝对不要在命令流中重复使用相同的文件名**
 
+## 2.5 The Shell as a Programming Language 作为程序设计语言的Shell
+编写shell脚本有两种方式：
+1. 输入一系列命令让交互的执行
+2. 把命令保存到一个文件中，作为一个程序来调
+
+### 2.5.1 Interactive Programs 交互式程序
+例子：从大量C语言源文件中查找包含字符串POSIX的文件
+````
+$ for file in *
+> do
+> if grep -1 POSIX $file    \\grep 输出他找到的包含 POSIX 字符串的文件
+> then                      
+> more $file                \\more 命令将文件内容显示在屏幕上
+> fi
+> done                      \\返回shell提示符
+````
+
+shell支持通配符拓展：`* 匹配字符串`；`? 匹配单个字符`；`[set] 匹配方括号中任意一个单字符`；`[^set] 取反`；`{str1,str2}匹配字符串`
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ 
