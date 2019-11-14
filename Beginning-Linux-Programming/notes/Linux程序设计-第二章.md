@@ -222,3 +222,41 @@ Enter some text
 Hello World 
 $myvar now equals Hello World
 ````
+
+#### 2-环境变量
+When a shell script starts, some variables are initialized from values in the environment.
+当一个shell脚本程序开始执行时，一些变量会根据环境设置中的值进行初始化。
+
+环境变量通常大写。  
+
+*主要的环境变量：*
+````
+Environment Variable ｜ Description  
+-------------------- ｜ -----------  
+$HOME | The home directory of the current user  
+$PATH | A colon-separated list of directories to search for commands
+$PS1  | A command prompt, frequently $, but in bash you can use some more complex values; 
+        for example, the string [\u@\h \W]$ is a popular default that tells you the user, machine name, and current directory, as well as providing a $ prompt.
+$PS2  | A secondary prompt, used when prompting for additional input; usually >.
+$IFS  | An input field separator. This is a list of characters that are used to separate words when the shell is reading input, usually space, tab, and newline characters. 
+$0    | The name of the shell script
+$#    | The number of parameters passed
+$$   | The process ID of the shell script, often used inside a script for generating unique temporary filenames; for example /tmp/tmpfile_$$
+````
+
+#### 3-参数变量
+If your script is invoked with parameters, some additional variables are created.  
+如果脚本程序在调用的时候带有参数，一些额外的变量就会被创建。  
+````
+Parameter Variable｜Description
+------------------｜-----------  
+$1, $2, … ｜The parameters given to the script
+$*        ｜If your script is invoked with parameters, some additional variables are created. 
+            A list of all the parameters, in a single variable, separated by the first character in the environment variable IFS.
+            If IFS is modified, then the way $* separates the command line into parameters will change.
+
+$@        ｜A subtle variation on $*; it doesn’t use the IFS environment variable, so parameters are not run together even if IFS is empty.
+
+````
+
+访问脚本程序的参数 用`@$`
