@@ -144,6 +144,8 @@ In this way,只要输入脚本的名字就可以调用了
 # chmod 755 /usr/local/bin/first
 ````
 
+执行脚本时提示权限不足：  
+`chmod 777 ./first`
 ## 2.6 Shell Syntax Shell的语法  
 本部分内容：  
 - Variables: strings, numbers, environments, and parameters
@@ -189,4 +191,34 @@ You can also remove the special meaning of the $ symbol by prefacing it with a `
 `' '`: 不发生替换  
 `\`： 反义符号，取消`$`的特殊含义  
 
+*实例：*
+[源代码](https://raw.githubusercontent.com/jsmjsm/ITbooks/master/Beginning-Linux-Programming/practise/chapter-2/tryVariables)  
+````
+#!/bin/sh
 
+myvar=”Hi there”
+
+echo $myvar
+echo “$myvar”
+echo ‘$myvar’
+echo \$myvar
+
+echo Enter some text
+read myvar
+
+echo ‘$myvar’ now equals $myvar
+
+exit 0
+````
+
+输出内容： 
+````
+$ ./variable 
+Hi there 
+Hi there 
+$myvar 
+$myvar
+Enter some text 
+Hello World 
+$myvar now equals Hello World
+````
