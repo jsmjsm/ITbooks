@@ -49,8 +49,8 @@ You can connect processes using the pipe operator `|`.
 In Linux, process connected by pipes can run simultaneously and are automatically resheculed as data flows between them.  
 在Linux下通过管道连接的进程可以同时运行，并且随着数据流在他们之间的传递可以自动地进行协调。  
 
-*例子：*  
-````
+例子：
+```
     // 不使用管道:
     $ ps > psout.txt 
     $ sort psout.txt > pssort.out
@@ -64,7 +64,7 @@ In Linux, process connected by pipes can run simultaneously and are automaticall
     // 2. 用 uniq 命令去除名字相同的进程
     // 3. 用 grep -vsh 删除名为sh的进程
     // 4. 将结果分页显示在屏幕上
-````
+```
 
 **绝对不要在命令流中重复使用相同的文件名**
 
@@ -75,7 +75,7 @@ In Linux, process connected by pipes can run simultaneously and are automaticall
 
 ### 2.5.1 Interactive Programs 交互式程序
 *例子：从大量C语言源文件中查找包含字符串POSIX的文件*
-````
+```
 $ for file in *
 > do
 > if grep -1 POSIX $file    \\grep 输出他找到的包含 POSIX 字符串的文件
@@ -83,14 +83,14 @@ $ for file in *
 > more $file                \\more 命令将文件内容显示在屏幕上
 > fi
 > done                      \\返回shell提示符
-````
+```
 
 shell支持通配符拓展：  
 `* 匹配字符串`；`? 匹配单个字符`；`[set] 匹配方括号中任意一个单字符`；`[^set] 取反`；`{str1,str2}匹配字符串`
 
 ### 2.5.2 Creating a Script 创建脚本
  *脚本范例：*
- ````
+ ```c
 #! /bin/sh
 
 # first
@@ -107,7 +107,7 @@ do
 done
 
 exit 0
- ````
+ ```
 
 `#!/bin/sh` 是一种特殊形式的注释：`#!`告诉系统，后面跟着的参数`/bin/sh`是用来执行文件的程序。
 注释中用的是绝对路径。
@@ -137,12 +137,12 @@ In this way,只要输入脚本的名字就可以调用了
 
 防止其他用户修改脚本程序：  
 *去掉脚本程序的写权限:*
-````
+```
 # cp first /usr/local/bin 
 # chown root /usr/local/bin/first 
 # chgrp root /usr/local/bin/first 
 # chmod 755 /usr/local/bin/first
-````
+```
 
 执行脚本时提示权限不足：  
 `chmod 777 ./first`
@@ -170,12 +170,12 @@ In this way,只要输入脚本的名字就可以调用了
 
 用户输入内容： `read varbianle`
 *例子：*
-````
+```
 $ read mood     \\变量名为mood，等待用户输入
 depressed       \\用户输入
 $ echo $mood    \\eaco + $ + 变量名。输入变量内容
 depressed       \\输出变量值
-````
+```
 
 #### 1- Quoting 使用引号
 一般情况下，脚本文件的参数用空白字符分割  
@@ -193,7 +193,7 @@ You can also remove the special meaning of the $ symbol by prefacing it with a `
 
 *实例：*
 [源代码](https://raw.githubusercontent.com/jsmjsm/ITbooks/master/Beginning-Linux-Programming/practise/chapter-2/tryVariables)  
-````
+```
 #!/bin/sh
 
 myvar=”Hi there”
@@ -209,10 +209,10 @@ read myvar
 echo ‘$myvar’ now equals $myvar
 
 exit 0
-````
+```
 
 输出内容： 
-````
+```
 $ ./variable 
 Hi there 
 Hi there 
@@ -221,7 +221,7 @@ $myvar
 Enter some text 
 Hello World 
 $myvar now equals Hello World
-````
+```
 
 #### 2-环境变量
 When a shell script starts, some variables are initialized from values in the environment.
@@ -230,7 +230,7 @@ When a shell script starts, some variables are initialized from values in the en
 环境变量通常大写。  
 
 *主要的环境变量：*
-````
+```
 Environment Variable ｜ Description  
 -------------------- ｜ -----------  
 $HOME | The home directory of the current user  
@@ -242,12 +242,12 @@ $IFS  | An input field separator. This is a list of characters that are used to 
 $0    | The name of the shell script
 $#    | The number of parameters passed
 $$   | The process ID of the shell script, often used inside a script for generating unique temporary filenames; for example /tmp/tmpfile_$$
-````
+```
 
 #### 3-参数变量
 If your script is invoked with parameters, some additional variables are created.  
 如果脚本程序在调用的时候带有参数，一些额外的变量就会被创建。  
-````
+```
 Parameter Variable｜Description
 ------------------｜-----------  
 $1, $2, … ｜The parameters given to the script
@@ -257,7 +257,7 @@ $*        ｜If your script is invoked with parameters, some additional variable
 
 $@        ｜A subtle variation on $*; it doesn’t use the IFS environment variable, so parameters are not run together even if IFS is empty.
 
-````
+```
 
 访问脚本程序的参数 用`@$`
 
@@ -275,34 +275,34 @@ $@        ｜A subtle variation on $*; it doesn’t use the IFS environment vari
 
 ### 2.6.3 Control Structure 控制结构   
 #### 1-if
-````
+```
 if ...
 then ...
 else ...
-````
+```
 #### 2-elif
 类似else if
-````
+```
 if ...
 then ...
 elif ...
 then...
 else
-````
+```
 #### 4-for
-````
+```
 for ... in ...；
 do ...
 done
-````
+```
 #### 5-while 
-````
+```
 while ...; do ...
 done
-````
+```
 
 example: a rather poor password-checking program: 
-````
+```
 #！/bin/sh
 
 echo "Enter Password"
@@ -313,22 +313,22 @@ while ["$trythis != "secret"]; do
     read trythis
 done 
 exit 0
-````
+```
 #### 6-until 
-````
+```
 until...
 do ...
 done ...
-````
+```
 #### 7-case
 case construct enables you to match the contents of a variable asaginst patterns in quite sophisticated way and allows execution of diffrent statements, depending on which pattern was matched.  
 case 结构允许你通过一种比较复杂的方式将变量和模式进行匹配，然后根据匹配的模式去执行代码。  
-````
+```
 case variable in 
  pattern [ | pattern] ...) statements;;
  pattern [ | pattern] ...) statements;;
 esac
-````
+```
 ⚠️：每个模式后面都用`；；`结尾。
 #### 8-list 
 Sometimes,you want to connect cmmmands in a series. For instance, you want serval diffrent conditions to be met before you excuute a statement.
@@ -339,7 +339,7 @@ OR `||`
 #### 9-Statement Blicks
 `{...}`
 
-### 2.6.3 Functions 函数
+### 2.6.4 Functions 函数
 就是函数啦
 语法： 
 ```c
@@ -353,3 +353,5 @@ OTHERWISE the function can access the other shell variables that are essentially
 否则函数就可以访问其他全局变量 
 local variable can overlay the global variable (same name)
 局部变量可以覆盖同名全局变量
+
+### 2.6.5 Commands 命令
