@@ -1,0 +1,12 @@
+#!/bin/sh
+
+echo "Is it moring? Please answer yes or no"
+read time 
+
+case "$time" in 
+	yes | y | Yes | YES )	echo "GM!";;
+	n* | N* )		echo "GA!";;
+	* )			echo "error input.";;
+esac
+
+exit 0	

@@ -1,0 +1,21 @@
+#!/bin/bash
+
+echo "Is it morinig? Please enter yes or no:"
+read time 
+
+case "$time" in 
+	yes | y | YES | Yes)
+		echo "GM"
+		echo "Up bright and early this morning"
+		;;
+	[nN]*)
+		echo "GA"
+		;;
+	*)
+		echo "Sorry, answer not recognized"
+		echo "Please answer yes or no"
+		exit 1
+		;;
+esac
+
+exit 0

@@ -260,3 +260,83 @@ $@        ｜A subtle variation on $*; it doesn’t use the IFS environment vari
 ````
 
 访问脚本程序的参数 用`@$`
+
+### 2.6.2 Conditions 条件
+所有程序设计语言的基础是对条件进行测试判断，并根据测试结果采取不同的行动能力。 
+一个 shell 脚本能够对任何可以从 commandline 上调用的命令的退出码进行测试。
+
+#### test 或 [ 命令
+布尔判断值命令  
+`if test -f fred.c`  
+`if [ -f fred.c `  
+两者是等价的。  
+
+可以使用的条件类型：string, 算术比较，文件相关  
+
+### 2.6.3 Control Structure 控制结构   
+#### 1-if
+````
+if ...
+then ...
+else ...
+````
+#### 2-elif
+类似else if
+````
+if ...
+then ...
+elif ...
+then...
+else
+````
+#### 4-for
+````
+for ... in ...；
+do ...
+done
+````
+#### 5-while 
+````
+while ...; do ...
+done
+````
+
+example: a rather poor password-checking program: 
+````
+#！/bin/sh
+
+echo "Enter Password"
+read trythis
+
+while ["$trythis != "secret"]; do
+    echo "Sorry, try again."
+    read trythis
+done 
+exit 0
+````
+#### 6-until 
+````
+until...
+do ...
+done ...
+````
+#### 7-case
+case construct enables you to match the contents of a variable asaginst patterns in quite sophisticated way and allows execution of diffrent statements, depending on which pattern was matched.  
+case 结构允许你通过一种比较复杂的方式将变量和模式进行匹配，然后根据匹配的模式去执行代码。  
+````
+case variable in 
+ pattern [ | pattern] ...) statements;;
+ pattern [ | pattern] ...) statements;;
+esac
+````
+⚠️：每个模式后面都用`；；`结尾。
+#### 8-list 
+Sometimes,you want to connect cmmmands in a series. For instance, you want serval diffrent conditions to be met before you excuute a statement.
+用list来解决多个if的问题。  
+有AND list 和 OR list  
+AND: `&&`
+OR `||`
+#### 9-Statement Blicks
+`{...}`
+
+
