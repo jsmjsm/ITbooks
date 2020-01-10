@@ -50,7 +50,7 @@ In Linux, process connected by pipes can run simultaneously and are automaticall
 在Linux下通过管道连接的进程可以同时运行，并且随着数据流在他们之间的传递可以自动地进行协调。  
 
 例子：
-```
+``` shell
     // 不使用管道:
     $ ps > psout.txt 
     $ sort psout.txt > pssort.out
@@ -75,7 +75,7 @@ In Linux, process connected by pipes can run simultaneously and are automaticall
 
 ### 2.5.1 Interactive Programs 交互式程序
 *例子：从大量C语言源文件中查找包含字符串POSIX的文件*
-```
+```shell
 $ for file in *
 > do
 > if grep -1 POSIX $file    \\grep 输出他找到的包含 POSIX 字符串的文件
@@ -90,7 +90,7 @@ shell支持通配符拓展：
 
 ### 2.5.2 Creating a Script 创建脚本
  *脚本范例：*
- ```c
+ ```shell
 #! /bin/sh
 
 # first
@@ -137,7 +137,7 @@ In this way,只要输入脚本的名字就可以调用了
 
 防止其他用户修改脚本程序：  
 *去掉脚本程序的写权限:*
-```
+```shell
 # cp first /usr/local/bin 
 # chown root /usr/local/bin/first 
 # chgrp root /usr/local/bin/first 
@@ -170,14 +170,14 @@ In this way,只要输入脚本的名字就可以调用了
 
 用户输入内容： `read varbianle`
 *例子：*
-```
+```shell
 $ read mood     \\变量名为mood，等待用户输入
 depressed       \\用户输入
 $ echo $mood    \\eaco + $ + 变量名。输入变量内容
 depressed       \\输出变量值
 ```
 
-#### 1- Quoting 使用引号
+#### 1 - Quoting 使用引号
 一般情况下，脚本文件的参数用空白字符分割  
 在一个参数中包含一个或多个空白字符，就要用`" "`
 字符串放在`" "`中  
@@ -193,7 +193,7 @@ You can also remove the special meaning of the $ symbol by prefacing it with a `
 
 *实例：*
 [源代码](https://raw.githubusercontent.com/jsmjsm/ITbooks/master/Beginning-Linux-Programming/practise/chapter-2/tryVariables)  
-```
+```shell
 #!/bin/sh
 
 myvar=”Hi there”
@@ -212,7 +212,7 @@ exit 0
 ```
 
 输出内容： 
-```
+```shell
 $ ./variable 
 Hi there 
 Hi there 
@@ -223,7 +223,7 @@ Hello World
 $myvar now equals Hello World
 ```
 
-#### 2-环境变量
+#### 2 - 环境变量
 When a shell script starts, some variables are initialized from values in the environment.
 当一个shell脚本程序开始执行时，一些变量会根据环境设置中的值进行初始化。
 
@@ -244,7 +244,7 @@ $#    | The number of parameters passed
 $$   | The process ID of the shell script, often used inside a script for generating unique temporary filenames; for example /tmp/tmpfile_$$
 ```
 
-#### 3-参数变量
+#### 3 - 参数变量
 If your script is invoked with parameters, some additional variables are created.  
 如果脚本程序在调用的时候带有参数，一些额外的变量就会被创建。  
 ```
@@ -274,35 +274,35 @@ $@        ｜A subtle variation on $*; it doesn’t use the IFS environment vari
 可以使用的条件类型：string, 算术比较，文件相关  
 
 ### 2.6.3 Control Structure 控制结构   
-#### 1-if
-```
+#### 1 - if
+```shell
 if ...
 then ...
 else ...
 ```
-#### 2-elif
+#### 2 - elif
 类似else if
-```
+```shell
 if ...
 then ...
 elif ...
 then...
 else
 ```
-#### 4-for
-```
+#### 4 - for
+```shell
 for ... in ...；
 do ...
 done
 ```
-#### 5-while 
-```
+#### 5 - while 
+```shell
 while ...; do ...
 done
 ```
 
 example: a rather poor password-checking program: 
-```
+```shell
 #！/bin/sh
 
 echo "Enter Password"
@@ -314,13 +314,13 @@ while ["$trythis != "secret"]; do
 done 
 exit 0
 ```
-#### 6-until 
-```
+#### 6 - until 
+```shell
 until...
 do ...
 done ...
 ```
-#### 7-case
+#### 7 - case
 case construct enables you to match the contents of a variable asaginst patterns in quite sophisticated way and allows execution of diffrent statements, depending on which pattern was matched.  
 case 结构允许你通过一种比较复杂的方式将变量和模式进行匹配，然后根据匹配的模式去执行代码。  
 ```
@@ -330,19 +330,19 @@ case variable in
 esac
 ```
 ⚠️：每个模式后面都用`；；`结尾。
-#### 8-list 
+#### 8 - list 
 Sometimes,you want to connect cmmmands in a series. For instance, you want serval diffrent conditions to be met before you excuute a statement.
 用list来解决多个if的问题。  
 有AND list 和 OR list  
 AND: `&&`
 OR `||`
-#### 9-Statement Blicks
+#### 9 - Statement Blicks
 `{...}`
 
 ### 2.6.4 Functions 函数
 就是函数啦
 语法： 
-```c
+```shell
     function_name (){
         statements
     }
@@ -355,3 +355,125 @@ local variable can overlay the global variable (same name)
 局部变量可以覆盖同名全局变量
 
 ### 2.6.5 Commands 命令
+linux 命令分为外部命令和内部命令两类，内部命令执行效率更高  
+#### 1 - break
+可以跳出一层循环
+#### 2 - :
+冒号 `:` 命令是一个空命令
+偶尔用于简化条件逻辑 
+比true快
+`while : ` <=> `while true`
+#### 3 - continue
+跟c里面的continue类似，跳到下一次循环继续进行
+#### 4 - .
+点 `.` 命令用于在当前shell中执行命令
+通常，一个脚本在执行一条外部命令或脚本程序的时候，他会创建一个子 shell ，命令在子 shell 中执行，执行完毕后，子 shell 被丢弃，退出码返回给父shell
+可以和c的 `#include` 类比
+#### 5 - echo 
+echo 命令输出结尾带有换行符的字符串
+
+去掉换行符的方法
+`echo -n "xxxxx"`
+或者
+`echo -e "xxxxx\c"`
+\c -> 换行符；
+\t -> 制表符
+\n -> 回车
+
+用外部命令tr也可以删除换行符，只不过比较慢
+Unix系统用`prinitf` 比较好
+
+#### 6 - eval
+eval 允许你对参数进行求值 
+#### 7 - exec
+有两种用法：
+1. 将当前shell 替换为一个不同的程序。exec命令后面的代码都不会执行了
+2. 修改当前文件描述符
+
+#### 8 - exit n
+以退出码 n 退出程序
+0 表示成功退出
+1～125 都是脚本程序可以用的错误代码。
+这些是保留含义的错误代码：
+- 127 The file was not executable
+- 128 A command was not found
+- 128 and above A signal occurred
+
+#### 9 - export 
+The export command makes the variable named as its parameter available in subshells. 
+export 命令将作为他的参数的变量导出到 子shell 中，并使他在 子shell 中有效。
+
+By default, variables created in a shell are not available in further (sub)shells invoked from that shell.
+默认状态下，一个 shell 中被创建的变量在他的 子shell 中是不可用的。
+
+export是被导出的变量变成 子shell 的环境变量
+
+💡`set -a` 或 `set -allexport`  命令将导出它声明之后的所有变量
+
+#### 10 - expr
+The expr command evaluates its arguments as an expression. 
+expr 命令将他的参数当作一个表达式来求值
+它可以完成许多表达式的求职运算
+
+#### 11 - printf 
+语法
+`printf "format string" parameter1 parameter2 `
+
+#### 12 - return 
+就是 return
+
+#### 13 - set
+The set command sets the parameter variables for the shell.
+用 `set` 来设置参数变量
+
+`set -x` 让脚本程序跟踪显示它当前执行的命令
+
+#### 14 - shift
+把所有参数变量左移一个位置。
+`$1` 被丢弃，但是`$0` 被保留
+可以`shift 指定数值距离`
+
+可以借助 `shift` 来扫描所有位置参数
+```shell
+while [ "$1" != "" ]; do
+    echo "$1"
+    shift
+done
+```
+
+#### 15 - trap 
+The trap command is used to specify the actions to take on receipt of signals
+trap 用于指定收到特定信号后的动作。
+格式：`trap command signal`
+
+trap 常用于脚本程序被中断时完成的清理工作。
+
+
+- to reset a trap condition to the defaul:
+重置处理方式：  `trap - signal`
+- to ignore a signal:
+忽略掉某个信号 `trap '' signal`
+
+#### 16 - unset 
+从环境变量中删除变量或函数
+
+#### 17 - find 
+语法: `find [path] [options] [filename] [actions]`
+例子：
+`find . -newer TESE -type f -print`
+`find . \( -newer TEST -or -name "_*" \) -type f -ls`
+
+#### 18 - grep
+正则匹配
+General Regular Expression Parser = grep
+语法：`grep [options] PATTERN [FILES]`
+
+用 find 搜索文件； 用 grep 搜索文件中的字符串
+💡 常用用法： 在使用 `find` 时, 通过 `-exec`传递结果给 `grep` 
+
+例子：
+`grep bin in TEST`
+`gerp -c bin TEST1 TEST2`
+`gerp -c -v bin TEST1 TEST2`
+
+正则表达式在此不赘述。
