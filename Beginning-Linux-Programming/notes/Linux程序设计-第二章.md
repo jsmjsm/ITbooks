@@ -339,4 +339,17 @@ OR `||`
 #### 9-Statement Blicks
 `{...}`
 
-
+### 2.6.3 Functions 函数
+就是函数啦
+语法： 
+```c
+    function_name (){
+        statements
+    }
+```
+Note that you can declare local variables within shell functions by using the `local ` keyword.
+可以用 `local` 关键字创建局部变量
+OTHERWISE the function can access the other shell variables that are essentially global in scope 
+否则函数就可以访问其他全局变量 
+local variable can overlay the global variable (same name)
+局部变量可以覆盖同名全局变量
