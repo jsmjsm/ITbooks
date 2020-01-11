@@ -558,3 +558,4 @@ When an error occurs, the shell will normally print out the line number of the l
 | `sh -v <script>`    | `set -o verbose` | `set -v`   | 执行命令前echo     |
 | `sh -x <script>`    | `set -o trace`   | `set -x`   | 执行命令后echo     |
 | `sh -u <script>`    | `set -o nounset` | `set -u`   | 用了未定义的变量就报错   |
+
