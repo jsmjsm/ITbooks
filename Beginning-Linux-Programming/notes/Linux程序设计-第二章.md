@@ -412,8 +412,8 @@ export是被导出的变量变成 子shell 的环境变量
 
 #### 10 - expr
 The expr command evaluates its arguments as an expression. 
-expr 命令将他的参数当作一个表达式来求值
-它可以完成许多表达式的求职运算
+expr 命令将他的参数当作一个表达式来求值  
+它可以完成许多表达式的求职运算 
 
 #### 11 - printf 
 语法
@@ -423,10 +423,9 @@ expr 命令将他的参数当作一个表达式来求值
 就是 return
 
 #### 13 - set
-The set command sets the parameter variables for the shell.
-用 `set` 来设置参数变量
-
-`set -x` 让脚本程序跟踪显示它当前执行的命令
+The set command sets the parameter variables for the shell.  
+用 `set` 来设置参数变量  
+`set -x` 让脚本程序跟踪显示它当前执行的命令  
 
 #### 14 - shift
 把所有参数变量左移一个位置。
@@ -443,7 +442,7 @@ done
 
 #### 15 - trap 
 The trap command is used to specify the actions to take on receipt of signals
-trap 用于指定收到特定信号后的动作。
+trap 用于指定收到特定信号后的动作。  
 格式：`trap command signal`
 
 trap 常用于脚本程序被中断时完成的清理工作。
@@ -460,7 +459,7 @@ trap 常用于脚本程序被中断时完成的清理工作。
 #### 17 - find 
 语法: `find [path] [options] [filename] [actions]`
 例子：
-`find . -newer TESE -type f -print`
+`find . -newer TESE -type f -print`  
 `find . \( -newer TEST -or -name "_*" \) -type f -ls`
 
 #### 18 - grep
@@ -470,10 +469,49 @@ General Regular Expression Parser = grep
 
 用 find 搜索文件； 用 grep 搜索文件中的字符串
 💡 常用用法： 在使用 `find` 时, 通过 `-exec`传递结果给 `grep` 
-
+
 例子：
-`grep bin in TEST`
-`gerp -c bin TEST1 TEST2`
-`gerp -c -v bin TEST1 TEST2`
+`grep bin in TEST` 
+`gerp -c bin TEST1 TEST2`  
+`gerp -c -v bin TEST1 TEST2` 
 
 正则表达式在此不赘述。
+
+### 2.6.6 Command Execution 命令的执行
+执行一条命令，并且把命令的输出放在一个变量里。  
+通过 `set` 命令中的 `$(command)`可以实现。  
+例子：  
+`echo The current users are $(who)`  
+`echo The current directory is $PWD`  
+  
+赋值： `variableName = $(command)`  
+
+#### 1 - Arithmetic Expansion 算术拓展
+`expr` 命令比较慢
+更好的处理办法：利用 `$((...))` 进行算术拓展（算术替换）  
+例子：`x=$(($x+1))`  
+
+#### 2 - Parameter Expansion 参数拓展
+在变量后面附加额外的字符会遇到错误。  
+例如 `$i_tmp`  
+解决方法 `$(i)_tmp` 把参数的值替换了一个字符
+**常用参数拓展**
+
+| 命令                | 作用                       |
+|-------------------|--------------------------|
+| `${param:-default}` | 如果param为空，则把它设置为default值 |
+| `${#param}`         | param的长度                 |
+| `${param%word}`     | 从头开始，删除最短匹配word          |
+| `${param%%word}`    | 从头开始，删除最长匹配word          |
+| `${param#word}`     | 从尾开始，删除最短匹配word          |
+| `${param##word}`    | 从尾开始，删除最长匹配word          |
+
+实例：利用 cjpeg 将文件夹下的gif转换成jpg
+```shell
+for image in  *.gif
+do 
+    # 利用 cjpeg，并且修改输出文件的后缀为jpg
+    cjpeg $image > ${image%%gif}jpg
+done
+```
+### 2.6.7 Here Document Here 文档
