@@ -1,0 +1,7 @@
+#!/bin/sh
+
+cat <<!FUNKEY!
+hello 
+this is  a here 
+document
+!FUNKEY!

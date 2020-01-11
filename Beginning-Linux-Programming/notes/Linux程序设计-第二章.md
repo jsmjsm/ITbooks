@@ -515,3 +515,46 @@ do
 done
 ```
 ### 2.6.7 Here Document Here 文档
+One special way of passing input to a command from a shell script is to use a `here` document.  
+向一条命里传递输入的一种特殊方式是使用 here文档  
+
+`<<` 是 shell 的标签重新定向符。
+
+A here document starts with the leader <<, followed by a special sequence of characters that is repeated at the end of the document.  
+here 文档以 `<<` 开始，紧跟着一个特殊额字符序列，然后又以这个特殊字符序列结束。
+例子：  
+```shell
+#!/bin/sh
+
+cat <<!FUNKY!
+hello
+this is a here
+document
+!FUNKY!
+```
+输出：  
+```
+hello 
+this is a here 
+document 
+```
+
+*here文档*可以结合*ed编辑器*进行文件编辑
+
+### 2.6.8 Debugging Scripts 调试脚本
+When an error occurs, the shell will normally print out the line number of the line containing the error. If the error isn’t immediately apparent, you can add some extra echo statements to display the contents of variables and test code fragments by simply typing them into the shell interactively.  
+当有错误产生的时候，shell会输出产生错误的行数。  
+如果错误并不明显，可以通过添加额外的echo去进行调试。  
+
+跟踪脚本的复杂错误的主要方法是设置各种 shell 选项。  
+途径：
+- 调用 shell 时加上 Command Line Option 
+- 利用 set Option
+
+
+| Command Line Option | set Option       | set Option | Description   |
+|---------------------|:-----------------|:-----------|:--------------|
+| `sh -n <script>`    | `set -o noexec ` | `set -n`   | 只检查语法错误，不执行命令 |
+| `sh -v <script>`    | `set -o verbose` | `set -v`   | 执行命令前echo     |
+| `sh -x <script>`    | `set -o trace`   | `set -x`   | 执行命令后echo     |
+| `sh -u <script>`    | `set -o nounset` | `set -u`   | 用了未定义的变量就报错   |
