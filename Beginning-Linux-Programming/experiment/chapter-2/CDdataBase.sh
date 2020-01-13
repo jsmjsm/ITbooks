@@ -106,7 +106,7 @@ add_record_tracks(){
 }
 
 # 添加新 CD
-add_record(){
+add_records(){
     #Prompt for the initial information
     echo -e "Enter catalog name \c"
     read tmp
@@ -248,7 +248,7 @@ count_cds(){
 
 # 删除记录
 remove_records(){
-    if [ -z "cdcatnum" ];
+    if [ -z "cdcatnum" ]; then
         echo You must select a CD first
         find_cd
     fi
@@ -292,24 +292,44 @@ list_tracks(){
     return
 }
 
+# 主程序
+rm -f $temp_file
+if [ ! -f $title_file ]; then
+     touch $title_file
+fi
+if [ ! -f $tracks_file ]; then
+    touch $tracks_file
+fi
 
+## Now the application proper
+clear
+echo
+echo
+echo "Mini CD Magager"
+sleep 1
 
+quit=n
+while [ "$quit" != "y"];
+do
+    set_menu_choice
+    case "$menu_choice" in
+        a) add_records;;
+        r) remove_records;;
+        f) find_cd;;
+        u) update_cd;;
+        c) count_cds;;
+        l) list_tracks;;
+        b)
+           echo
+           more $title_file
+           echo
+           get_return;;
+        q | Q) quit = y;;
+        *) echo "Sorry, choice not recognized"
+    esac
+done
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+## Tidy up and leave
+rm -f $temp_file
+echo "Finished"
+exit 0
