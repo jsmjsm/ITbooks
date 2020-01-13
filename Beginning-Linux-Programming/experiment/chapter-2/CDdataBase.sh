@@ -49,7 +49,7 @@ set_menu_choice(){
     echo "  a) Add new CD"
     echo "  b) Find CD"
     echo "  c) Count the CDs and tracks in the catalog"
-    if [ "$cdcatum" != "" ]; then
+    if [ "$cdcatnum" != "" ]; then
         echo "  l) List tracks on $cdtitle"
         echo "  r) Remove $cdtitle"
         echo "  u) Update trck information for $cdtitle"
@@ -95,7 +95,7 @@ add_record_tracks(){
         # 插入内容
         if [ -n "$cdtitle" ]; then
             if [ "$cdtitle != q" ]; then
-                insert_track $cdcatum,$cdtrack,$cdtitle
+                insert_track $cdcatnum,$cdtrack,$cdtitle
             fi
         else
             # 数量
@@ -105,8 +105,41 @@ add_record_tracks(){
     done
 }
 
+# 添加新 CD
+add_record(){
+    #Prompt for the initial information
+    echo -e "Enter catalog name \c"
+    read tmp
+    cdcatnum=${tmp%%,*}
+
+    echo -e "Enter title \c"
+    read tmp
+    cdtitle=${tmp%%,*}
+
+    echo -e "Enter type \c"
+    read tmp
+    cdtype=${tmp%%,*}
 
 
+    echo -e "Enter artist/composer \c"
+    read tmp
+    cdac=${tmp%%,*}
+
+    # Check that they want to enter the information
+    echo About to add new entry
+    echo "$cdcatnum $cdtitle $cdtype $cdac"
+
+    # If confirmed then append it to the title file
+
+    if get_confirm ; then
+        insert_title $cdcatnu,$cdtitle,$cdtype,$cdac
+        add_record_tracks
+    else
+        remove_records
+    fi
+
+    return
+}
 
 
 
