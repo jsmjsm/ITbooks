@@ -53,3 +53,6 @@ list_tracks()
 #### 利用 IFS
 IFS (Internal Field Separator) 
 更改 IFS，成为一个`,`去分割
+
+### 更新cd信息
+搜索的行是以 $cdcatnum 开头的（用标志 ^），并且后面跟着一个逗号

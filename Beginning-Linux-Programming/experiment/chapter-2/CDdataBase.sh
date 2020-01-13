@@ -161,6 +161,7 @@ find_cd(){
     grep "searchstr" $title_file > $temp_file
 
     ## wc, the word count command
+    ## 提取第一个参数，并赋值给linesfound
     set ${wc -l $temp_file}
     linesfound=$1
 
@@ -177,7 +178,7 @@ find_cd(){
             return 0
     esac
 
-    ## 修改 IFS
+    ## 修改 IFS,读取以逗号为分隔符的数据字段
     IFS=","
     read cdcatnum cdtitle cdtype cdac < $temp_file
     IFS=" "
@@ -211,7 +212,26 @@ find_cd(){
     return 1
 }
 
-
+# 更新 cd 信息
+update_cd(){
+    if [ -z "$cdcatnum" ]; then
+        echo "You must select a CD first"
+        find_cd n
+    fi
+    if [ -n "$cdcatnum" ]; then
+        echo "Current tracks are: -"
+        list_tracks
+        echo
+        echo "This will re-renter the tracks for $cdtitle"
+        get_confirm && {
+            grep -v "^${cdcatnum}," $tracks_file > $temp_file
+            mv $temp_file $tracks_file
+            echo
+            add_record_tracks
+        }
+    fi
+    return
+}
 
 
 
