@@ -309,7 +309,7 @@ echo "Mini CD Magager"
 sleep 1
 
 quit=n
-while [ "$quit" != "y"];
+while [ "$quit" != "y" ];
 do
     set_menu_choice
     case "$menu_choice" in
