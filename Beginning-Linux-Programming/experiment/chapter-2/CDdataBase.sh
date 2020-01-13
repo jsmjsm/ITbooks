@@ -40,3 +40,90 @@ get_confirm(){
         esac
     done
 }
+
+# 主菜单设计
+set_menu_choice(){
+    clear # 请空屏幕
+    echo "Options :- "
+    echo
+    echo "  a) Add new CD"
+    echo "  b) Find CD"
+    echo "  c) Count the CDs and tracks in the catalog"
+    if [ "$cdcatum" != "" ]; then
+        echo "  l) List tracks on $cdtitle"
+        echo "  r) Remove $cdtitle"
+        echo "  u) Update trck information for $cdtitle"
+    fi
+    echo "q) Quit"
+    echo
+    echo -e "Please enter choice then press return \c"
+    read menu_choice
+    return
+}
+
+# 向数据库插入内容 title 或 track。
+## 插入title
+insert_title(){
+    echo $* >> $title_file
+    return
+}
+## 插入track
+insert_track(){
+    echo $* >> $tracks_file
+    return
+}
+
+## 添加album里面的tack
+add_record_tracks(){
+    echo "Enter track information for this CD"
+    echo "When no more tracks enter q"
+    # 初始化
+    cdtrack=1
+    cdtitle=""
+    # 输入信息
+    while [ "$cdtitle" != "q" ]
+    do
+        # 获取title
+        echo -e "Track $cdtrack, track title? \c"
+        read tmp
+        cdtitle=${tmp%%,*} # cdtitle 是 tmp 去掉逗号之后的内容
+        # 出现逗号的错误处理
+        if [ "$tmp" != "$cdtitle" ]; then
+            echo "Sorry, no commas allowed"
+            continue
+        fi
+        # 插入内容
+        if [ -n "$cdtitle" ]; then
+            if [ "$cdtitle != q" ]; then
+                insert_track $cdcatum,$cdtrack,$cdtitle
+            fi
+        else
+            # 数量
+            cdtrack=$((cdtrack-1))
+        fi
+        cdtrack=$((cdtrack+1))
+    done
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
