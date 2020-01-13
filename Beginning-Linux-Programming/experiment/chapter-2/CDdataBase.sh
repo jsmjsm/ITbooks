@@ -269,7 +269,28 @@ remove_records(){
     return
 }
 
-
+# 显示tracks
+list_tracks(){
+    if [ "$cdcatnum" = "" ]; then
+        echo no CD select yet
+        return
+    else
+        gerp "^${cdcatnum}," $tracks_file > temp_file
+        num_tracks=$(wc -l $temp_file) # 统计行数
+        if [ "$num_tracks" = "0" ]; then
+            echo no tracks found for $cdtitle
+        else {
+            echo
+            echo "cdtitle :-"
+            echo
+            echo -f 2- -d , $temp_file
+            echo
+        } | ${PAGER:-more} # 通过more来实现页面输出
+        fi
+    fi
+    get_return
+    return
+}
 
 
 

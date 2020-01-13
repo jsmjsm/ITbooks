@@ -56,3 +56,8 @@ IFS (Internal Field Separator)
 
 ### 更新cd信息
 搜索的行是以 $cdcatnum 开头的（用标志 ^），并且后面跟着一个逗号
+
+### 输出列表
+通过grep来找到你想要的行
+通过 cut 来访问你想要的字段
+通过 more 来提供页面输出
