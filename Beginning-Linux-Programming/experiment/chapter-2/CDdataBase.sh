@@ -141,6 +141,84 @@ add_record(){
     return
 }
 
+# 查找 cd
+find_cd(){
+
+    if [ "$1" = "n"]; then
+        asklist=n
+    else
+        asklist=y
+    fi
+    cdcatnum=""
+    ## 输入搜索关键字
+    echo -e "Enter a string to search for in the CD titles \c"
+    read searchstr
+    if [ "$searchstr" = "" ]; then
+        return 0
+    fi
+
+    ## 搜索，输出内容放进temp_file
+    grep "searchstr" $title_file > $temp_file
+
+    ## wc, the word count command
+    set ${wc -l $temp_file}
+    linesfound=$1
+
+    case "$linesfound" in
+        0)  echo "Sorry, nothing found"
+            get_return
+            return 0
+            ;;
+        1)  ;;
+        2)  echo "Sorry, not unique"
+            echo "Found the fllowing"
+            cat $temp_file
+            get_return
+            return 0
+    esac
+
+    ## 修改 IFS
+    IFS=","
+    read cdcatnum cdtitle cdtype cdac < $temp_file
+    IFS=" "
+
+    # 查找失败
+    if [ -z "$cdcatnum"  ]; then
+        echo "Sorry, could not extract catalog field from $temp_file"
+        get_return
+        return 0
+    fi
+
+    # 格式化输出
+    echo
+    echo Catalog number: $cdcatnum
+    echo Title: $cdtitle
+    echo Type: $cdtype
+    echo Artist/Composer: $cdac
+    echo
+    get_return
+
+    # 输出 track 列表
+    if [ "$asklist" = "y" ]; then
+        echo -e "View tracks for the CD? \c"
+            read x
+        if [ "$x" = "$y" ]; then
+            echo
+            list_tracks
+            echo
+        fi
+    fi
+    return 1
+}
+
+
+
+
+
+
+
+
+
 
 
 
