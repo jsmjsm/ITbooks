@@ -235,6 +235,17 @@ update_cd(){
     return
 }
 
+# 统计内容
+count_cds(){
+    set ${wc -l $title_file}
+    num_titles=$1
+    set ${wc -l $tracks_file}
+    num_tracks=$1
+    echo found $num_titles CDs, with a total $sum_tracks tracks
+    get_return
+    return
+}
+
 
 
 
