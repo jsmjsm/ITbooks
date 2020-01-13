@@ -214,10 +214,12 @@ find_cd(){
 
 # 更新 cd 信息
 update_cd(){
+    ## 当值为空
     if [ -z "$cdcatnum" ]; then
         echo "You must select a CD first"
         find_cd n
     fi
+    ## 当值不为空
     if [ -n "$cdcatnum" ]; then
         echo "Current tracks are: -"
         list_tracks
@@ -232,8 +234,6 @@ update_cd(){
     fi
     return
 }
-
-
 
 
 
