@@ -42,3 +42,14 @@ count_cds() # 统计cd数目
 remove_records() # 移除cd
 list_tracks()
 ```
+
+### 查找cd
+#### 利用 grep 
+`grep` 会输出关键字所在的行
+将grep的输出，存储到一个临时文件，每一次匹配占有一行，然后统计行数。
+#### 利用 wc
+`${wc -l $temp_file}` 用 wc 统计行数，并且去指向第一个搜索结果
+
+#### 利用 IFS
+IFS (Internal Field Separator) 
+更改 IFS，成为一个`,`去分割
