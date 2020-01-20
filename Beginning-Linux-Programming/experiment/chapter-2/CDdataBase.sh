@@ -254,13 +254,11 @@ remove_records(){
     fi
     if [ -n "$cdcatnum" ]; then
         echo "You are about to delete $cdtitle"
-        get_confirm&&{
-            ## 通过grep命令删除所有匹配的字符串
-            ## grep -v 反向查找
+        get_confirm && {
             grep -v "^${cdcatnum}," $title_file > $temp_file
             mv $temp_file $title_file
             grep -v "^${cdcatnum}," $tracks_file > $temp_file
-            mv $temp_file $title_file
+            mv $temp_file $tracks_file
             cdcatnum=""
             echo Entry removed
         }
