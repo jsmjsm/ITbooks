@@ -6,7 +6,7 @@ menu_choice=""
 current_cd=""
 title_file="title.cdb"
 tracks_file="tracks.cdb"
-temp_file=/tep/cdb.$$
+temp_file=/tmp/cdb.$$
 # 设置 Ctrl+C 中断处理
 trap 'rm -f $temp_file' EXIT
 
@@ -47,14 +47,14 @@ set_menu_choice(){
     echo "Options :- "
     echo
     echo "  a) Add new CD"
-    echo "  b) Find CD"
+    echo "  f) Find CD"
     echo "  c) Count the CDs and tracks in the catalog"
     if [ "$cdcatnum" != "" ]; then
         echo "  l) List tracks on $cdtitle"
         echo "  r) Remove $cdtitle"
         echo "  u) Update trck information for $cdtitle"
     fi
-    echo "q) Quit"
+    echo "  q) Quit"
     echo
     echo -e "Please enter choice then press return \c"
     read menu_choice
@@ -94,7 +94,7 @@ add_record_tracks(){
         fi
         # 插入内容
         if [ -n "$cdtitle" ]; then
-            if [ "$cdtitle != q" ]; then
+            if [ "$cdtitle" != "q" ]; then
                 insert_track $cdcatnum,$cdtrack,$cdtitle
             fi
         else
@@ -132,7 +132,7 @@ add_records(){
     # If confirmed then append it to the title file
 
     if get_confirm ; then
-        insert_title $cdcatnu,$cdtitle,$cdtype,$cdac
+        insert_title $cdcatnum,$cdtitle,$cdtype,$cdac
         add_record_tracks
     else
         remove_records
@@ -144,7 +144,7 @@ add_records(){
 # 查找 cd
 find_cd(){
 
-    if [ "$1" = "n"]; then
+    if [ "$1" = "n" ]; then
         asklist=n
     else
         asklist=y
@@ -158,11 +158,11 @@ find_cd(){
     fi
 
     ## 搜索，输出内容放进temp_file
-    grep "searchstr" $title_file > $temp_file
-
+    grep "$searchstr" $title_file > $temp_file
+    #echo "***********************************"
     ## wc, the word count command
     ## 提取第一个参数，并赋值给linesfound
-    set ${wc -l $temp_file}
+    set $(wc -l $temp_file)
     linesfound=$1
 
     case "$linesfound" in
@@ -221,12 +221,12 @@ update_cd(){
     fi
     ## 当值不为空
     if [ -n "$cdcatnum" ]; then
-        echo "Current tracks are: -"
+        echo "Current tracks are just showed"
         list_tracks
         echo
         echo "This will re-renter the tracks for $cdtitle"
         get_confirm && {
-            grep -v "^${cdcatnum}," $tracks_file > $temp_file
+            grep -v “^${cdcatnum},” $tracks_file > $temp_file
             mv $temp_file $tracks_file
             echo
             add_record_tracks
@@ -237,11 +237,11 @@ update_cd(){
 
 # 统计内容
 count_cds(){
-    set ${wc -l $title_file}
+    set $(wc -l $title_file)
     num_titles=$1
-    set ${wc -l $tracks_file}
+    set $(wc -l $tracks_file)
     num_tracks=$1
-    echo found $num_titles CDs, with a total $sum_tracks tracks
+    echo found $num_titles CDs, with a total $num_tracks tracks
     get_return
     return
 }
@@ -275,15 +275,15 @@ list_tracks(){
         echo no CD select yet
         return
     else
-        gerp "^${cdcatnum}," $tracks_file > temp_file
+        grep "^${cdcatnum}," $tracks_file > $temp_file
         num_tracks=$(wc -l $temp_file) # 统计行数
         if [ "$num_tracks" = "0" ]; then
             echo no tracks found for $cdtitle
         else {
             echo
-            echo "cdtitle :-"
+            echo "$cdtitle :-"
             echo
-            echo -f 2- -d , $temp_file
+            cut -f 2- -d , $temp_file
             echo
         } | ${PAGER:-more} # 通过more来实现页面输出
         fi
@@ -324,12 +324,13 @@ do
            more $title_file
            echo
            get_return;;
-        q | Q) quit = y;;
+        q | Q ) quit=y;;
         *) echo "Sorry, choice not recognized"
     esac
 done
 
 ## Tidy up and leave
+
 rm -f $temp_file
 echo "Finished"
 exit 0
